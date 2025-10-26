@@ -101,7 +101,7 @@ def tech():
     if email in cred.email:
         ind = cred[cred['email']==email].index.tolist()
     elif password == cred.password[ind]:
-        return render_template('technical.html')
+        return render_template('technician.html')
     else:
         return render_template('medipanelpro2.html', error="Invalid credentials!")
 
@@ -118,6 +118,13 @@ def save_csv():
 
     filename = data.get('filename')
     content = data.get('content')
+    # basic validation
+    if not filename or not content:
+        return {'ok': False, 'error': 'missing filename or content'}, 400
+
+    # normalize the incoming filename: frontend sometimes sends 'data/xxx.csv'
+    # use basename so we only allow files within the FrontEnd/data folder
+    filename_base = os.path.basename(filename)
 
     # only allow specific files to be overwritten for safety
     allowed = {
@@ -127,11 +134,11 @@ def save_csv():
         'hospital_stats.csv'
     }
 
-    if not filename or filename not in allowed:
-        return { 'ok': False, 'error': 'filename not allowed' }, 400
+    if filename_base not in allowed:
+        return {'ok': False, 'error': 'filename not allowed'}, 400
 
     # build absolute path under the FrontEnd/data folder
-    target = os.path.join(app.root_path, 'FrontEnd', 'data', filename)
+    target = os.path.join(app.root_path, 'FrontEnd', 'data', filename_base)
     try:
         # write the content (overwrite)
         with open(target, 'w', encoding='utf-8') as f:
