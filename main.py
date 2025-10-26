@@ -5,7 +5,7 @@ import os
 app = Flask(__name__, template_folder = 'FrontEnd',static_folder='FrontEnd',static_url_path='')
 
 
-@app.route("/") #take /<var> it is stores in var.
+@app.route("/") 
 def home():
     return render_template('medipanelpro2.html')
 
@@ -19,13 +19,11 @@ def patient():
     email = request.form.get("email", "").strip()
     password = request.form.get("password", "")
 
-    # build an absolute path so CSV is found regardless of working directory
     credentials_file = os.path.join(app.root_path, "credentials", "patient.csv")
 
     cred = pd.read_csv(credentials_file, dtype=str).fillna("")
 
 
-    # case-insensitive column check
     cols = {c.lower(): c for c in cred.columns}
     if "email" not in cols or "password" not in cols:
         return render_template('medipanelpro2.html', error="Server error: invalid credentials file.")
@@ -33,13 +31,11 @@ def patient():
     email_col = cols["email"]
     password_col = cols["password"]
 
-    # locate the row(s) matching the email
     matches = cred.loc[cred[email_col].astype(str).str.strip().str.lower() == email.lower()]
     if matches.empty:
         return render_template('medipanelpro2.html', error="Invalid email or password.")
 
     row = matches.iloc[0]
-    # compare as strings (for production use hashed passwords + check_password_hash)
     if str(row[password_col]) == password:
         return render_template('patient.html')
     else:
@@ -51,13 +47,11 @@ def doctor():
     email = request.form.get("email", "").strip()
     password = request.form.get("password", "")
 
-    # build an absolute path so CSV is found regardless of working directory
     credentials_file = os.path.join(app.root_path, "credentials", "doc.csv")
 
     cred = pd.read_csv(credentials_file, dtype=str).fillna("")
 
 
-    # case-insensitive column check
     cols = {c.lower(): c for c in cred.columns}
     if "email" not in cols or "password" not in cols:
         return render_template('medipanelpro2.html', error="Server error: invalid credentials file.")
@@ -65,13 +59,11 @@ def doctor():
     email_col = cols["email"]
     password_col = cols["password"]
 
-    # locate the row(s) matching the email
     matches = cred.loc[cred[email_col].astype(str).str.strip().str.lower() == email.lower()]
     if matches.empty:
         return render_template('medipanelpro2.html', error="Invalid email or password.")
 
     row = matches.iloc[0]
-    # compare as strings (for production use hashed passwords + check_password_hash)
     if str(row[password_col]) == password:
         return render_template('doctor.html')
     else:
@@ -108,25 +100,21 @@ def tech():
 
 
 
-# endpoint to allow saving specific CSV files from the front-end editor
 @app.route('/save_csv', methods=['POST'])
 def save_csv():
-    # Accept JSON or form data
+
     data = request.get_json(silent=True)
     if data is None:
         data = request.form.to_dict()
 
     filename = data.get('filename')
     content = data.get('content')
-    # basic validation
     if not filename or not content:
         return {'ok': False, 'error': 'missing filename or content'}, 400
 
-    # normalize the incoming filename: frontend sometimes sends 'data/xxx.csv'
-    # use basename so we only allow files within the FrontEnd/data folder
+
     filename_base = os.path.basename(filename)
 
-    # only allow specific files to be overwritten for safety
     allowed = {
         'doctor_patients.csv',
         'nurse_patients.csv',
@@ -137,23 +125,13 @@ def save_csv():
     if filename_base not in allowed:
         return {'ok': False, 'error': 'filename not allowed'}, 400
 
-    # build absolute path under the FrontEnd/data folder
     target = os.path.join(app.root_path, 'FrontEnd', 'data', filename_base)
     try:
-        # write the content (overwrite)
         with open(target, 'w', encoding='utf-8') as f:
             f.write(content)
         return { 'ok': True }
     except Exception as e:
         return { 'ok': False, 'error': str(e) }, 500
-
-
-# @app.route('/<path:filename>')
-# def serve_static(filename):
-#     if filename in pages:
-#         return send_from_directory('FrontEnd', filename)
-#     else:
-#         return render_template('medipanelpro2.html')  
 
 if __name__ == "__main__":
     app.run()
