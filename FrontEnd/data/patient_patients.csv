@@ -1,0 +1,5 @@
+id,name,age,gender,doctor,next_appointment
+1,Anita Sharma,32,Female,Dr. Rao,2025-11-05
+2,Mohammed Ali,40,Male,Dr. Smith,2025-11-12
+3,Lisa Wong,27,Female,Dr. Lee,2025-11-18
+4,James Wilson,55,Male,Dr. Johnson,2025-11-25

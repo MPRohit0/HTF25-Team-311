@@ -1,0 +1,171 @@
+/* Reset-ish */
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html,body { height: 100%; font-family: Inter, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; }
+
+:root{
+  --accent: #5b7cfa;
+  --glass: rgba(255,255,255,0.09);
+  --glass-2: rgba(255,255,255,0.06);
+  --text: #000000;
+  --muted: rgba(255,255,255,0.8);
+}
+
+/* Background image + subtle overlay */
+body {
+  background-color: #ffffff; /* make page background white for login pages */
+  position: relative;
+  min-height: 100vh;
+  color: var(--text);
+}
+
+/* dark overlay to improve contrast */
+.bg-overlay {
+  display: none; /* hide dark overlay on login pages when background is white */
+}
+
+/* page container centers the card */
+.page {
+  min-height: 100vh;
+  display: grid;
+  place-items: center;
+  padding: 2rem;
+  position: relative;
+  z-index: 1;
+}
+
+/* glass card */
+.login-card {
+  width: 100%;
+  max-width: 420px;
+  padding: 2rem;
+  border-radius: 14px;
+  background-color: #1a76d1; /* main box color requested */
+  color: #ffffff; /* ensure text inside the box is white */
+  border: none;
+  box-shadow: 0 18px 40px rgba(15,23,42,0.18), 0 6px 18px rgba(26,118,209,0.12);
+}
+
+/* Title */
+.title {
+  font-size: 1.5rem;
+  margin-bottom: 1.25rem;
+  color: inherit; /* inherits white from .login-card */
+  text-align: center;
+}
+
+/* Form fields */
+.form .field {
+  margin-bottom: 1rem;
+}
+.form label {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  font-size: 0.9rem;
+  color: var(--muted);
+  margin-bottom: .35rem;
+}
+.form input[type="email"],
+.form input[type="password"] {
+  width: 100%;
+  padding: .85rem .9rem;
+  border-radius: 10px;
+  border: 1px solid rgba(0,0,0,0.12);
+  background-color: #ffffff; /* inputs white for readability */
+  color: #000000; /* input text black */
+  font-size: 0.95rem;
+  outline: none;
+  transition: box-shadow .12s, border-color .12s;
+}
+.form input:focus {
+  border-color: rgba(91,124,250,0.9);
+  box-shadow: 0 6px 18px rgba(91,124,250,0.08);
+}
+
+/* forgot link */
+.forgot {
+  color: rgba(255,255,255,0.9);
+  text-decoration: none;
+  font-size: 0.85rem;
+}
+.forgot:hover { text-decoration: underline; }
+
+/* controls row */
+.controls {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: .25rem;
+}
+.remember {
+  font-size: 0.9rem;
+  color: rgba(255,255,255,0.9);
+  display: inline-flex;
+  gap: .5rem;
+  align-items: center;
+}
+.remember input { accent-color: var(--accent); width: 1rem; height:1rem; }
+
+/* button */
+.btn {
+  background: #ffffff; /* white button */
+  border: 1px solid rgba(0,0,0,0.08);
+  color: #1a76d1; /* blue text */
+  padding: .7rem 1rem;
+  border-radius: 10px;
+  font-weight: 700;
+  cursor: pointer;
+  min-width: 110px;
+  box-shadow: 0 8px 18px rgba(15,23,42,0.08);
+}
+.btn:active { transform: translateY(1px); }
+
+/* divider */
+.divider {
+  text-align: center;
+  margin: 1rem 0;
+  color: rgba(255,255,255,0.55);
+  font-size: 0.9rem;
+}
+
+/* socials */
+.socials {
+  display: grid;
+  gap: .6rem;
+}
+.social-btn {
+  padding: .6rem;
+  border-radius: 10px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: transparent;
+  color: #ffffff;
+  font-weight: 600;
+  cursor: pointer;
+}
+.social-btn:hover { transform: translateY(-1px); }
+
+/* signup */
+.signup {
+  text-align: center;
+  margin-top: .9rem;
+  color: rgba(255,255,255,0.9);
+  font-size: 0.9rem;
+}
+.signup a { color: #ffffff; text-decoration: underline; font-weight:600; }
+.signup a:hover { text-decoration: underline; }
+
+/* error messages */
+.error {
+  display: block;
+  margin-top: .35rem;
+  color: #ffb4b4;
+  font-size: 0.85rem;
+  min-height: 1rem;
+}
+
+/* small screens */
+@media (max-width:420px){
+  .login-card { padding: 1.25rem; border-radius: 12px; }
+  .title { font-size: 1.25rem; }
+}

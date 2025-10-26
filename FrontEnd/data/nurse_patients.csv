@@ -1,0 +1,5 @@
+id,name,age,gender,doctor,next_appointment
+1,Emily Chen,29,Female,Dr. Roberts,2025-11-10
+2,Michael Brown,42,Male,Dr. Johnson,2025-11-08
+3,Sofia Garcia,35,Female,Dr. Smith,2025-11-15
+4,William Lee,51,Male,Dr. Anderson,2025-11-20

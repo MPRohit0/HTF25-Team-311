@@ -1,0 +1,241 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Medithingy Dashboard</title>
+  <!-- Bootstrap CSS -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <!-- Bootstrap Icons -->
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css" rel="stylesheet">
+  <style>
+    /* Card gradient backgrounds */
+    .bg-gradient-primary { background: linear-gradient(45deg, #1a76d1, #1a76d1); }
+    .bg-gradient-success { background: linear-gradient(45deg, #1a76d1, #1a76d1); }
+    .bg-gradient-warning { background: linear-gradient(45deg, #1a76d1, #1a76d1); }
+    .bg-gradient-danger { background: linear-gradient(45deg, #1a76d1, #1a76d1); }
+    /* Table hover */
+    tbody tr:hover { background-color: #f1f1f1; cursor: pointer; }
+    /* Counter animation */
+    .counter { font-weight: bold; }
+  </style>
+</head>
+<body>
+  <!-- Header / Navbar -->
+  <header>
+    <nav class="navbar navbar-expand-lg navbar-dark" style="background-color: #1a76d1;">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="medipanelpro2.html">MediConnect</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNav">
+          <ul class="navbar-nav ms-auto">
+            <li class="nav-item"><a class="nav-link active" href="medipanelpro2.html">Dashboard</a></li>
+            <li class="nav-item"><a class="nav-link" href="patients.html">Patients</a></li>
+            
+            <!-- Staff Dropdown -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="staffDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Staff
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="staffDropdown">
+                <li><a class="dropdown-item" href="doctors.html"><i class="bi bi-stethoscope me-2"></i>Doctors</a></li>
+                <li><a class="dropdown-item" href="nurses.html"><i class="bi bi-heart-pulse me-2"></i>Nurses</a></li>
+                <li><a class="dropdown-item" href="technicians.html"><i class="bi bi-tools me-2"></i>Technicians</a></li>
+              </ul>
+            </li>
+            
+            <!-- Services Dropdown -->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="servicesDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                Services
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="servicesDropdown">
+                <li><a class="dropdown-item" href="appointments.html"><i class="bi bi-calendar-check me-2"></i>Appointments</a></li>
+                <li><a class="dropdown-item" href="tests.html"><i class="bi bi-clipboard2-pulse me-2"></i>Tests</a></li>
+                <li><a class="dropdown-item" href="mris.html"><i class="bi bi-file-medical me-2"></i>MRIs</a></li>
+              </ul>
+            </li>
+            
+            <li class="nav-item"><a class="nav-link" href="/">Logout</a></li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+  </header>
+
+  <!-- Main Dashboard Content -->
+  <main class="container my-5">
+    <!-- Cards Row -->
+    <div class="row g-4">
+      <div class="col-md-3">
+        <div class="card text-white bg-gradient-primary h-100">
+          <div class="card-body d-flex align-items-center">
+            <i class="bi bi-person-fill fs-1 me-3"></i>
+            <div>
+              <h5 class="card-title">Total Patients</h5>
+              <p class="card-text fs-3 counter" data-target="25">0</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card text-white bg-gradient-success h-100">
+          <div class="card-body d-flex align-items-center">
+            <i class="bi bi-stethoscope fs-1 me-3"></i>
+            <div>
+              <h5 class="card-title">Total Doctors</h5>
+              <p class="card-text fs-3 counter" data-target="8">0</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card text-white bg-gradient-warning h-100">
+          <div class="card-body d-flex align-items-center">
+            <i class="bi bi-calendar-check fs-1 me-3"></i>
+            <div>
+              <h5 class="card-title">Today's Appointments</h5>
+              <p class="card-text fs-3 counter" data-target="12">0</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="card text-white bg-gradient-danger h-100">
+          <div class="card-body d-flex align-items-center">
+            <i class="bi bi-hospital fs-1 me-3"></i>
+            <div>
+              <h5 class="card-title">Available Beds</h5>
+              <p class="card-text fs-3 counter" data-target="5">0</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Latest Patients Table -->
+    <div class="mt-5">
+      <h4>Latest Patients</h4>
+      <div class="table-responsive">
+        <table class="table table-striped table-hover">
+          <thead style="background-color: #1a76d1; color: white;">
+            <tr>
+              <th>#</th>
+              <th>Name</th>
+              <th>Age</th>
+              <th>Gender</th>
+              <th>Doctor</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="latestPatients">
+            <tr>
+              <td>1</td>
+              <td>Daksh boi😏</td>
+              <td>18</td>
+              <td>Mail Gender</td>
+              <td>Dr. Gopubhoi</td>
+              <td><button class="btn btn-sm" style="background-color: #1a76d1; color: white;">View</button></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="bg-light text-center text-muted py-3 mt-5">
+    &copy; 2025 MediConnect | All Rights Reserved
+  </footer>
+
+  <!-- Bootstrap JS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+
+  <!-- Animated Counters JS -->
+  <script>
+    // Function to fetch and update hospital stats (doctors, patients, appointments, beds)
+    async function updateHospitalStats() {
+      try {
+        const response = await fetch('data/hospital_stats.csv');
+        const csvText = await response.text();
+
+        const lines = csvText.trim().split('\n');
+        if (lines.length < 2) return;
+        const headers = lines[0].split(',').map(h => h.trim());
+        const values = lines[1].split(',').map(v => v.trim());
+        const data = {};
+        headers.forEach((h, i) => data[h] = values[i] || '0');
+
+        // Map card titles to CSV fields and update counters
+        document.querySelectorAll('.card').forEach(card => {
+          const titleEl = card.querySelector('.card-title');
+          const counterEl = card.querySelector('.counter');
+          if (!titleEl || !counterEl) return;
+          const title = titleEl.innerText.trim().toLowerCase();
+
+          if (title.includes('total doctors')) counterEl.setAttribute('data-target', data.total_doctors || '0');
+          else if (title.includes('total patients')) counterEl.setAttribute('data-target', data.total_patients || '0');
+          else if (title.includes("today")) counterEl.setAttribute('data-target', data.appointments_today || data.todays_appointments || '0');
+          else if (title.includes('available beds')) counterEl.setAttribute('data-target', data.available_beds || '0');
+        });
+
+        // Animate counters
+        const counters = document.querySelectorAll('.counter');
+        counters.forEach(counter => {
+          counter.innerText = '0';
+          const updateCounter = () => {
+            const target = +counter.getAttribute('data-target');
+            const current = +counter.innerText;
+            const increment = Math.max(1, Math.ceil(target / 50));
+            if (current < target) {
+              counter.innerText = `${Math.min(target, current + increment)}`;
+              setTimeout(updateCounter, 30);
+            } else {
+              counter.innerText = target;
+            }
+          };
+          updateCounter();
+        });
+      } catch (error) {
+        console.error('Error loading hospital stats:', error);
+      }
+    }
+
+    // Initial load + periodic refresh
+    updateHospitalStats();
+    setInterval(updateHospitalStats, 30000);
+
+    // Function to load patients table from a CSV file (id,name,age,gender,doctor)
+    async function loadPatientsTable(csvPath) {
+      try {
+        const resp = await fetch(csvPath);
+        const text = await resp.text();
+        const lines = text.trim().split('\n');
+        if (lines.length < 2) return;
+        const header = lines[0].split(',').map(h=>h.trim());
+        const rows = lines.slice(1).map(l => l.split(',').map(c=>c.trim()));
+
+        const tbody = document.getElementById('latestPatients');
+        if (!tbody) return;
+        // build rows
+        tbody.innerHTML = rows.map(cols => {
+          const id = cols[0] || '';
+          const name = cols[1] || '';
+          const age = cols[2] || '';
+          const gender = cols[3] || '';
+          const doctor = cols[4] || '';
+          return `\n            <tr>\n              <td>${id}</td>\n              <td>${name}</td>\n              <td>${age}</td>\n              <td>${gender}</td>\n              <td>${doctor}</td>\n              <td><button class="btn btn-sm" style="background-color: #1a76d1; color: white;">View</button></td>\n            </tr>`;
+        }).join('');
+      } catch (err) {
+        console.error('Error loading patients CSV:', err);
+      }
+    }
+
+    // Initial table load + refresh every 30s
+    loadPatientsTable('data/nurse_patients.csv');
+    setInterval(() => loadPatientsTable('data/nurse_patients.csv'), 30000);
+  </script>
+</body>
+</html>

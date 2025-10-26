@@ -1,0 +1,5 @@
+id,name,age,gender,doctor,next_appointment
+1,John Smith,45,Male,Dr. Johnson,2025-11-15
+2,Mary Wilson,32,Female,Dr. Davis,2025-10-30
+3,Robert Brown,58,Male,Dr. Anderson,2025-11-02
+4,Sarah Miller,29,Female,Dr. Wilson,2025-11-20
